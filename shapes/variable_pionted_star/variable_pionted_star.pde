@@ -66,8 +66,9 @@ void draw() {
         line(x, y, xx, yy);
       }
     }
+    fill(45);
     strokeWeight(1);
-    ellipse(x, y, 5, 5);
+    ellipse(x, y, 3, 3);
   }
 }
 

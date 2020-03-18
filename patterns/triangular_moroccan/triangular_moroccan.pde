@@ -4,7 +4,7 @@ void setup() {
   background(255);
   smooth(8);
   stroke(0);
-  strokeWeight(5);
+  strokeWeight(8);
   noFill();
   noLoop();
 
@@ -14,7 +14,7 @@ void draw() {
 
   grid(10);
   
-  strokeWeight(4);
+  strokeWeight(6);
   stroke(255);
   
   grid(10);
