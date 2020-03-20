@@ -50,7 +50,36 @@ void draw() {
 
   for(int x = 0; x < tiles; x++) {
     for(int y = 0; y < tiles; y++) {
-      image(img, x_pos, y_pos, (int)new_width, (int)new_height);
+      
+      if(x % 2 == 0) {
+        if(y % 2 == 0) {
+          // straight
+          image(img, x_pos, y_pos, (int)new_width, (int)new_height);        
+        } else {
+          // flipped on horizontal and below
+          pushMatrix();
+          translate(x_pos,y_pos);
+          scale(1,-1);
+          image(img, -(((int)new_width * x)), -(int)new_height, (int)new_width, (int)new_height);
+          popMatrix();
+        }
+      } else {
+        if(y % 2 == 0) {
+          // flipped vertically and to the right
+          pushMatrix();
+          translate(x_pos,y_pos);
+          scale(-1,1);
+          image(img, -((int)new_width * x), -((int)new_height * y), (int)new_width, (int)new_height);
+          popMatrix();       
+        } else {
+          // flipped vertically and horizontally below
+          pushMatrix();
+          translate(x_pos,y_pos);
+          scale(-1,-1);
+          image(img, -((int)new_width), -((int)new_height), (int)new_width, (int)new_height);
+          popMatrix();
+        } 
+      }
       println("x_pos = "+x_pos+" and y_pos = "+y_pos);
       y_pos = y_pos + (int)new_height;        
     }
