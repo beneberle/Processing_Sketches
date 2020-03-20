@@ -1,6 +1,6 @@
 
 PImage img;
-String[] images_to_load = { "mountains.jpg", "beach.jpg", "west.jpg" };
+String[] images_to_load = { "beach.jpg", "beach2.jpg","west.jpg","mountains.jpg" };
 int      current_img    = 0;
 String   image_to_load  = images_to_load[current_img];
 int      tiles          = 2;
@@ -29,94 +29,33 @@ void draw() {
   // is shrunk to fit window
   background(255);
   img = loadImage(image_to_load);
-  int composition_width = width - 100;
-  int composition_height = height - 100;
+
+  int padding = 100;
+  
   boolean is_portrait = img.width < img.height ? true : false;
-  float resize = (float) (composition_width / tiles) / (float)img.width;  
+  float resize = (float) ((width - padding) / tiles) / (float)img.width;  
 
   if(is_portrait) {
-    resize = (float)(composition_height / tiles) / (float)img.height;
+    resize = (float)((height - padding) / tiles) / (float)img.height;
   }
   
   float new_width = (float)img.width * resize;
   float new_height = (float)img.height * resize;
-  
-  int row_height = 0;
-  int row_width = 0;
-  int col_index = 0;
-  int x_start = (width - composition_width) / 2;
-  int y_start = (height - composition_height) / 2;
-  
-  for(int x = x_start; x < composition_width + x_start; x++) {
-    // loop thru first row
-    if (x == x_start) { 
-      // first
-//    pushMatrix();
-//    translate(0, row_height);
-//    scale(1,1);
-//    popMatrix();
-      println("first row!");
-      for(int y = y_start; y < composition_height + y_start; y++) {
-        // loop through each column  
-        if (y == y_start) { 
-          // first
-          println("first row-col! x:"+x+" y:"+y);
-          image(img, x, y, (int)new_width, (int)new_height);
-        } else if(y % ((composition_height + y_start) / 2) == 0){
-          println("second row?");
-          // first
-          pushMatrix();
-          translate(0, y);
-          println("translate x:"+x+"| y:"+y);
-          scale(1,-1);
-          image(img, x, -y + (int)new_height, (int)new_width, (int)new_height);
-          popMatrix();
-        }
-      }
-    } else if (x == (composition_width + x_start) / 2){ 
-      // middle?
-      for(int yy = y_start; yy < composition_height + y_start; yy++) {
-        // loop through each reversed column  
-        if (yy == y_start) { 
-          // first
-          pushMatrix();
-          translate(x, 0);
-          println("translate x:"+x+"| yy:"+yy);
-          scale(-1,1);
-          image(img, -x, yy, (int)new_width, (int)new_height);
-          popMatrix();
-          println("second row-col!");
+  int x_pos = (width - ((int)new_width * tiles)) / 2; 
+  int y_pos = (height - ((int)new_height *  tiles)) / 2; 
+  if(is_portrait) {
+    x_pos = (width - ((int)new_width * tiles)) / 2;
+ // y_pos = (height - ((int)new_height) / tiles;  
+  } 
 
-        } else {
-          
-        }
-      }
+  for(int x = 0; x < tiles; x++) {
+    for(int y = 0; y < tiles; y++) {
+      image(img, x_pos, y_pos, (int)new_width, (int)new_height);
+      println("x_pos = "+x_pos+" and y_pos = "+y_pos);
+      y_pos = y_pos + (int)new_height;        
     }
-    
-    /*
-    if(col_index % 2 == 0) {
-      // odd
-      pushMatrix();
-      translate((int)new_width, row_height);
-      scale(-1,1);
-      image(img,-(int)new_width,-row_height, (int) new_width, (int) new_height);
-      println("odd col");
-      popMatrix();
-    } else {
-      // even
-      println("even col");
-      pushMatrix();
-      translate((int)new_width, row_height);
-      scale(-1,-1);
-      image(img, -(int)new_width, -row_height, (int) new_width, (int) new_height);
-      popMatrix();
-    }
-    */
-    
-    row_height = row_height + (int) new_height;
-    row_width = row_width + (int) new_width;
-    col_index++;
-    
+    x_pos = x_pos + (int)new_width;  
+    y_pos = (height - ((int)new_height * tiles)) / 2;
   }
 }
 
