@@ -54,15 +54,17 @@ void draw() {
       if(x % 2 == 0) {
         if(y % 2 == 0) {
           // straight
-          image(img, x_pos, y_pos, (int)new_width, (int)new_height);        
+      println("top left");
+      image(img, x_pos, y_pos, (int)new_width, (int)new_height);
         } else {
-          // flipped vertically and below
-          pushMatrix();
-          translate(x_pos,y_pos);
-          scale(1,-1);
-          image(img, -(((int)new_width * x)), -(int)new_height, (int)new_width, (int)new_height);
-          popMatrix();
-        }
+      // flipped vertically and below
+      println("bottom left");
+      pushMatrix();
+      translate(x_pos,y_pos);
+      scale(1,-1);
+      image(img, -(((int)new_width * x)), -(int)new_height, (int)new_width, (int)new_height);
+      popMatrix();
+    }
       } else {
         if(y % 2 == 0) {
           // flipped horizontally and to the right
@@ -72,15 +74,16 @@ void draw() {
           image(img, -((int)new_width * x), -((int)new_height * y), (int)new_width, (int)new_height);
           popMatrix();       
         } else {
-          // flipped vertically and horizontally below
-          pushMatrix();
-          translate(x_pos,y_pos);
-          scale(-1,-1);
+    // flipped vertically and horizontally below
+//  println("bottom right");
+    pushMatrix();
+    translate(x_pos,y_pos);
+    scale(-1,-1);
           image(img, -(int)new_width, -((int)new_height), (int)new_width, (int)new_height);
-          popMatrix();
+    popMatrix();
         } 
       }
-      println("x_pos = "+x_pos+" and y_pos = "+y_pos);
+    println("x_pos = "+x_pos+" and y_pos = "+y_pos);
       y_pos = y_pos + (int)new_height;        
     }
     x_pos = x_pos + (int)new_width;  
