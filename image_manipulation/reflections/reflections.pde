@@ -56,7 +56,7 @@ void draw() {
           // straight
           image(img, x_pos, y_pos, (int)new_width, (int)new_height);        
         } else {
-          // flipped on horizontal and below
+          // flipped vertically and below
           pushMatrix();
           translate(x_pos,y_pos);
           scale(1,-1);
@@ -65,7 +65,7 @@ void draw() {
         }
       } else {
         if(y % 2 == 0) {
-          // flipped vertically and to the right
+          // flipped horizontally and to the right
           pushMatrix();
           translate(x_pos,y_pos);
           scale(-1,1);
@@ -76,7 +76,7 @@ void draw() {
           pushMatrix();
           translate(x_pos,y_pos);
           scale(-1,-1);
-          image(img, -((int)new_width), -((int)new_height), (int)new_width, (int)new_height);
+          image(img, -(int)new_width, -((int)new_height), (int)new_width, (int)new_height);
           popMatrix();
         } 
       }
@@ -97,10 +97,10 @@ void keyPressed() {
     }
     image_to_load = images_to_load[current_img];
   }
-  if (key == '>') {
+  if (key == '.') {
     tiles++;
   }
-  if(key == '<') {
+  if(key == ',') {
     tiles--;
   }
   tiles = constrain(tiles, 1, 30);
