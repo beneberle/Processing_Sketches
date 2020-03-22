@@ -55,29 +55,25 @@ void draw() {
       if(x % 2 == 0) {
         if(y % 2 == 0) {
           // straight
-          println("top left");
           image(img, x_pos, y_pos, new_width, new_height);
         } else {
           // flipped vertically and below
-          println("bottom left");
           pushMatrix();
           translate(x_pos,y_pos);
           scale(1,-1);
-          image(img, -((new_width * x)), -new_height, new_width, new_height);
+          image(img, -(new_width * x), -new_height, new_width, new_height);
           popMatrix();
         }
       } else {
         if(y % 2 == 0) {
           // flipped horizontally and to the right
-          println("top right");
           pushMatrix();
           translate(x_pos,y_pos);
           scale(-1,1);
           image(img, -(new_width * x), -(new_height * y), new_width, new_height);
-          popMatrix();       
+          popMatrix();
         } else {
           // flipped vertically and horizontally below
-          println("bottom right");
           pushMatrix();
           translate(x_pos,y_pos);
           scale(-1,-1);
@@ -85,7 +81,6 @@ void draw() {
           popMatrix();
         } 
       }
-//    println("x_pos = "+x_pos+" and y_pos = "+y_pos);
       y_pos = y_pos + new_height;        
     }
     x_pos = x_pos + new_width;  
