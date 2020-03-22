@@ -3,7 +3,7 @@ PImage img;
 String[] images_to_load = { "beach.jpg", "beach2.jpg","west.jpg","mountains.jpg" };
 int      current_img    = 0;
 String   image_to_load  = images_to_load[current_img];
-int      tiles          = 2;
+int      tiles          = 3;
 
 void setup() {
 
@@ -39,55 +39,57 @@ void draw() {
     resize = (float)((height - padding) / tiles) / (float)img.height;
   }
   
-  float new_width = (float)img.width * resize;
-  float new_height = (float)img.height * resize;
-  int x_pos = (width - ((int)new_width * tiles)) / 2; 
-  int y_pos = (height - ((int)new_height *  tiles)) / 2; 
+  int new_width = int((float)img.width * resize);
+  int new_height = int((float)img.height * resize);
+  int x_pos = (width - (new_width * tiles)) / 2; 
+  int y_pos = (height - (new_height *  tiles)) / 2; 
   if(is_portrait) {
-    x_pos = (width - ((int)new_width * tiles)) / 2;
- // y_pos = (height - ((int)new_height) / tiles;  
+    x_pos = (width - (new_width * tiles)) / 2;
+ // y_pos = (height - (new_height) / tiles;  
   } 
 
   for(int x = 0; x < tiles; x++) {
+    println("loop x: "+ x); 
     for(int y = 0; y < tiles; y++) {
-      
+      println("loop y: "+ y); 
       if(x % 2 == 0) {
         if(y % 2 == 0) {
           // straight
-      println("top left");
-      image(img, x_pos, y_pos, (int)new_width, (int)new_height);
+          println("top left");
+          image(img, x_pos, y_pos, new_width, new_height);
         } else {
-      // flipped vertically and below
-      println("bottom left");
-      pushMatrix();
-      translate(x_pos,y_pos);
-      scale(1,-1);
-      image(img, -(((int)new_width * x)), -(int)new_height, (int)new_width, (int)new_height);
-      popMatrix();
-    }
+          // flipped vertically and below
+          println("bottom left");
+          pushMatrix();
+          translate(x_pos,y_pos);
+          scale(1,-1);
+          image(img, -((new_width * x)), -new_height, new_width, new_height);
+          popMatrix();
+        }
       } else {
         if(y % 2 == 0) {
           // flipped horizontally and to the right
+          println("top right");
           pushMatrix();
           translate(x_pos,y_pos);
           scale(-1,1);
-          image(img, -((int)new_width * x), -((int)new_height * y), (int)new_width, (int)new_height);
+          image(img, -(new_width * x), -(new_height * y), new_width, new_height);
           popMatrix();       
         } else {
-    // flipped vertically and horizontally below
-//  println("bottom right");
-    pushMatrix();
-    translate(x_pos,y_pos);
-    scale(-1,-1);
-          image(img, -(int)new_width, -((int)new_height), (int)new_width, (int)new_height);
-    popMatrix();
+          // flipped vertically and horizontally below
+          println("bottom right");
+          pushMatrix();
+          translate(x_pos,y_pos);
+          scale(-1,-1);
+          image(img, -new_width, -(new_height), new_width, new_height);
+          popMatrix();
         } 
       }
-    println("x_pos = "+x_pos+" and y_pos = "+y_pos);
-      y_pos = y_pos + (int)new_height;        
+//    println("x_pos = "+x_pos+" and y_pos = "+y_pos);
+      y_pos = y_pos + new_height;        
     }
-    x_pos = x_pos + (int)new_width;  
-    y_pos = (height - ((int)new_height * tiles)) / 2;
+    x_pos = x_pos + new_width;  
+    y_pos = (height - (new_height * tiles)) / 2;
   }
 }
 
