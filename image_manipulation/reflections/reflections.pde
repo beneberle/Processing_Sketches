@@ -43,44 +43,54 @@ void draw() {
   int new_height = int((float)img.height * resize);
   int x_pos = (width - (new_width * tiles)) / 2; 
   int y_pos = (height - (new_height *  tiles)) / 2; 
-  if(is_portrait) {
-    x_pos = (width - (new_width * tiles)) / 2;
- // y_pos = (height - (new_height) / tiles;  
-  } 
-
+  
   for(int x = 0; x < tiles; x++) {
-    println("loop x: "+ x); 
     for(int y = 0; y < tiles; y++) {
-      println("loop y: "+ y); 
       if(x % 2 == 0) {
+        
+        // even column
         if(y % 2 == 0) {
-          // straight
+          
+          // even row          
           image(img, x_pos, y_pos, new_width, new_height);
+
         } else {
-          // flipped vertically and below
+
+          // odd row
+          // move down and reflect along x axis
+          
           pushMatrix();
-          translate(x_pos,y_pos);
+          translate(x_pos, y_pos);
           scale(1,-1);
-          image(img, -(new_width * x), -new_height, new_width, new_height);
+          image(img, 0, -new_height, new_width, new_height);
           popMatrix();
         }
       } else {
+        
+        // odd column
         if(y % 2 == 0) {
-          // flipped horizontally and to the right
+        
+          // even row
+          // move right and reflect along y axis
+                    
           pushMatrix();
-          translate(x_pos,y_pos);
+          translate(x_pos, y_pos);
           scale(-1,1);
-          image(img, -(new_width * x), -(new_height * y), new_width, new_height);
+          image(img, -new_width, 0, new_width, new_height);
           popMatrix();
         } else {
-          // flipped vertically and horizontally below
+          // odd row
+          // move down and right and 
+          // reflect horizontally and vertically
+          
           pushMatrix();
-          translate(x_pos,y_pos);
+          translate(x_pos, y_pos);
           scale(-1,-1);
-          image(img, -new_width, -(new_height), new_width, new_height);
+          image(img, -new_width, -new_height, new_width, new_height);
           popMatrix();
         } 
       }
+      
       y_pos = y_pos + new_height;        
     }
     x_pos = x_pos + new_width;  
