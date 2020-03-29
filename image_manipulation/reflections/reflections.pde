@@ -1,9 +1,10 @@
 
 PImage img;
 String[] images_to_load = { "beach.jpg", "beach2.jpg","west.jpg","mountains.jpg" };
-int      current_img    = 0;
-String   image_to_load  = images_to_load[current_img];
-int      tiles          = 3;
+int current_img    = 0;
+int total_image_count = 1;
+String image_to_load  = images_to_load[current_img];
+int tiles          = 3;
 
 void setup() {
 
@@ -28,8 +29,12 @@ void draw() {
   // so that max dimension
   // is shrunk to fit window
   background(255);
+  java.io.File folder = new java.io.File(dataPath(""));
+  String[] filenames = folder.list();
+  total_image_count = filenames.length;
+  String image_to_load = filenames[current_img];
   img = loadImage(image_to_load);
-
+  
   int padding = 100;
   
   boolean is_portrait = img.width < img.height ? true : false;
@@ -102,10 +107,9 @@ void keyPressed() {
   
   if (key == 'z') {
     current_img++;
-    if(current_img > images_to_load.length - 1) {
+    if(current_img > total_image_count - 1) {
       current_img = 0;
     }
-    image_to_load = images_to_load[current_img];
   }
   if (key == '.') {
     tiles++;
