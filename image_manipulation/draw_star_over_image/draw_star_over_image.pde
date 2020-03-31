@@ -30,18 +30,13 @@ void draw() {
   
   boolean is_portrait = img.width < img.height ? true : false;
   float resize = (float)width / (float)img.width;
-  
-  println(img.width);
-  println(img.height);
-  
   if(is_portrait) {
    resize = (float)height / (float)img.height;
   }
-  println(resize);
+  
   float new_width = img.width * resize;
   float new_height = img.height * resize;
   image(img,0,0, new_width, new_height);
-
   
   pushMatrix();
   translate(new_width - 1,0);
@@ -67,7 +62,7 @@ void draw() {
 void eqilateral_triangles() { 
 
   int angle = 60;
-  float offset = width * .12;
+  float offset = width * .114;
   
   float side_length = width * .8;
   float triangle_height = sin(radians(angle)) * side_length;

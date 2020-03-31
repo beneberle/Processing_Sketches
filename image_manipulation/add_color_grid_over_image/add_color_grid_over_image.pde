@@ -2,6 +2,7 @@ PImage img;
 int current_img = 0;
 int total_image_count = 1;
 int pointillize = 40;
+int grid = 10;
 
 void setup() {
   
@@ -40,7 +41,6 @@ void draw() {
 
   // Pick a random point
   
-  int grid = 10;
   int grid_width = new_width / grid;
   println("grid_width = " + grid_width);
 
@@ -48,10 +48,11 @@ void draw() {
   int y_start = y_pos;
   loadPixels();
 //noStroke();
-  fill(23, 23, 23, 150);
+  fill(23, 23, 23, 10);
   for(int x = 0; x < grid; x++) {
     int x_start = x_pos + (grid_width * x);
     for(int y = 1; y <= grid; y++) {
+      fill(y*20, y*20, y*20, 100);
       // Look up the RGB color in the source image
 
 //    float r = red(img.pixels[loc]);
