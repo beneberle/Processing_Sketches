@@ -7,8 +7,8 @@ int grid = 10;
 void setup() {
   
   smooth(10);
-  stroke(255);
-  strokeWeight(1);
+  stroke(255, 100);
+  strokeWeight(1.25);
   fill(255,0);
   noLoop();
   size(800, 800);
@@ -52,7 +52,7 @@ void draw() {
   for(int x = 0; x < grid; x++) {
     int x_start = x_pos + (grid_width * x);
     for(int y = 1; y <= grid; y++) {
-      fill(y*20, y*20, y*20, 100);
+      fill(y*20, y*20, y*20, 0);
       // Look up the RGB color in the source image
 
 //    float r = red(img.pixels[loc]);
@@ -60,7 +60,9 @@ void draw() {
 //    float b = blue(img.pixels[loc]);    
 
       // Draw a square
-      rect(x_start, y_start, grid_width, grid_height);
+      if(random(0,10) > 3) {
+        rect(x_start, y_start, grid_width, grid_height);
+      }
 //    println("x_start = " +  x_start + " | y_start = " + y_start);
       y_start =  y_pos + (grid_height * y);
     }

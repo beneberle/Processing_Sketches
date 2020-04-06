@@ -1,25 +1,27 @@
+int traiangles_per_side = 8;
+int stroker = 14;
 void setup() {
 
-  size(800, 800);
-  background(255);
-  smooth(8);
-  stroke(0);
-  strokeWeight(8);
+  size(1200, 800);
+  smooth(100);
   noFill();
   noLoop();
-
 }
 
 void draw() {
-
-  grid(10);
   
-  strokeWeight(6);
+  background(255);
+  
+  // draw black lines
+  stroke(0);
+  strokeWeight(stroker);  
+  grid(traiangles_per_side);
+
+  // draw inlaid white lines
   stroke(255);
-  
-  grid(10);
-
-//save("triangle_study.jpg");
+  strokeWeight(stroker - 1);
+  grid(traiangles_per_side);
+  save("triangle_moroccan.png");
 }
 
 void grid(int rows) {
@@ -82,4 +84,28 @@ void equi_triangle(float size, float x, float y){
   line(x, y, centroidx, centroidy);
   line(x3, y3, centroidx, centroidy);
   line(x + size, y, centroidx, centroidy);
+}
+
+void keyPressed() {
+  
+  if (key == '.') {
+    traiangles_per_side++;
+  }
+  if (key == ',') {
+    traiangles_per_side--;
+     if(traiangles_per_side < 1) {
+      traiangles_per_side = 0;
+    }
+  }
+  if (key == ';') {
+    stroker++;
+  }
+  if(key == 'l') {
+    stroker--;
+     if(stroker < 1) {
+      stroker = 0;
+    }
+  }
+  
+  redraw();
 }
