@@ -39,13 +39,12 @@ void draw() {
   float[][] Plots;  
 
   // Setup the array
-  Plots = new float [numPoints][3]; 
+  Plots = new float [numPoints][2]; 
   for (int i = 0; i < numPoints; i++) { 
     float x = radius*sin(angle*i)+width/2;
     float y = radius*cos(angle*i)+height/2;
     Plots[i][0] = x; 
     Plots[i][1] = y;
-    Plots[i][2] = 0.0;
   }
 
   // Draw the shape
@@ -55,11 +54,6 @@ void draw() {
     float y = Plots[i][1];
     for (int ii=i; ii<numPoints; ii++) { 
       if (ii>i) {
-        int index = ii;
-        //if(index >= numPoints){
-        //  index = ii - numPoints;
-        //}
-        //        println(ii);
         float xx = Plots[ii][0];
         float yy = Plots[ii][1];  
         strokeWeight(1);
