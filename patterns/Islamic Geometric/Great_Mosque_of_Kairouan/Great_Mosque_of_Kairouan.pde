@@ -37,7 +37,7 @@ void draw_tile(int tile_size) {
   line(width, 0, 0, height);
 
   // get all points along circle
-  int numPoints = 16; 
+  int numPoints = 8; 
 
   // calculate the angle each point is on
   float angle = TWO_PI/(float)numPoints; 
@@ -54,7 +54,7 @@ void draw_tile(int tile_size) {
     Plots[i][0] = x; 
     Plots[i][1] = y;
   }
-  
+
   for (int i = 0; i < numPoints; i++) { 
     float x = Plots[i][0];
     float y = Plots[i][1];
@@ -79,13 +79,24 @@ void draw_tile(int tile_size) {
         }
         line(x, y, NextPlot[0], NextPlot[1]);
     }
-    println("points are x:" + x + "| y:"+ y);
   }
   
   line(50,center,center,50); 
   line(center,50,tile_size+50,center); 
   line(50,center,center,tile_size+50); 
   line(tile_size+50,center,center,tile_size+50); 
+
+
+  // draw second set of dividing 
+  // lines crossing thru center
+  float a_angle = 22.5; 
+  float side_length = radius * tan(radians(a_angle));
+  
+  line(50, center + side_length, tile_size + 50, center - side_length);
+  line(50, center - side_length, tile_size + 50, center + side_length);
+  
+  line(center - side_length, 50, center + side_length, tile_size + 50);
+  line(center + side_length, 50, center - side_length, tile_size + 50);
   
 }
 
