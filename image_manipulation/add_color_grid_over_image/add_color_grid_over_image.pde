@@ -5,13 +5,14 @@ int pointillize = 40;
 int grid = 10;
 
 void setup() {
-  
+
+  size(800, 800);
   smooth(10);
   stroke(255, 100);
   strokeWeight(1.25);
   fill(255,0);
   noLoop();
-  size(800, 800);
+
 }
  
 void draw() {
