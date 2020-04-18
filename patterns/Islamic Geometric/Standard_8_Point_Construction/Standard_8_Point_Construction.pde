@@ -8,7 +8,8 @@ void setup() {
 
 void draw() {
 
-  paper(15);
+  Paper background = new Paper(15);
+  background.draw();
   fill(45, 0);
   draw_tile();
 }
@@ -80,19 +81,4 @@ void draw_tile() {
   line(center, padding, tile_size + padding, center); 
   line(padding, center, center, tile_size + padding); 
   line(tile_size + padding, center, center, tile_size + padding); 
-}
-
-void paper(int in_val) {
-  noStroke();
-  for (int i = 0; i < width - 1; i += 2) {
-    for (int j = 0; j < height - 1; j += 2) {
-      fill(random(85-10, 85+10), in_val);
-      rect(i, j, 2, 2);
-    }
-  }
-
-  for (int i = 0; i < 30; i++) {
-    fill(random(40, 60), random(in_val*2.5, in_val*3));
-    rect(random(0, width-2), random(0, height-2), random(1, 3), random(1, 3));
-  }
 }

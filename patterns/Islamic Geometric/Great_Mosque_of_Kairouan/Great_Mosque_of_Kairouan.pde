@@ -1,34 +1,39 @@
 
 void setup() {
 
-  size(800, 800);
+  size(400, 400);
   smooth(10);
-  strokeWeight(4);
   noLoop();
     
 }
 
 void draw() {
 
-  paper(15);
-  fill(245, 0);
-  draw_tile(700);
+  Paper background = new Paper(15);
+  
+  background.draw();
+  fill(45, 0);
+  draw_tile(300);
 }
 
 void draw_tile(int tile_size) { 
 
     stroke(130);
-    strokeWeight(2);
-  // first draw all construction lines,
+    strokeWeight(.8);
+  
+  // draw all construction lines,
   
   // just for fun
   
   // draw grid lines lines
   int radius =  tile_size / 2;
+  int padding = int((width - tile_size) / 2);
   rectMode(RADIUS); 
   float center = width/2;
-  rect(center, center, 350, 350);
-  circle(center, center, 700);
+  rect(center, center, radius, radius);
+  circle(center, center, tile_size);
+
+  // draw central grid
   line(center, 0, center, height); 
   line(0, center, width, center); 
   
@@ -67,7 +72,6 @@ void draw_tile(int tile_size) {
     float yy = NextPlot[1];
     line(x, y, xx, yy);
     fill(45);
-//  strokeWeight(1);
 
     if(i % 2 != 0) {
         // odd column
@@ -77,40 +81,32 @@ void draw_tile(int tile_size) {
         } else {
           NextPlot = Plots[1];   
         }
-        line(x, y, NextPlot[0], NextPlot[1]);
+        float angle_b = NextPlot[0] / (radius + padding - (NextPlot[1]));
+        
+        line(NextPlot[0], NextPlot[1], x, y);
+
+        println(angle_b);
+        float x_trad = tan(angle_b) * radius;
+//      line(NextPlot[0], NextPlot[1], x_trad, padding);
     }
   }
   
-  line(50,center,center,50); 
-  line(center,50,tile_size+50,center); 
-  line(50,center,center,tile_size+50); 
-  line(tile_size+50,center,center,tile_size+50); 
-
+  
+  line(center, padding, padding, center); 
+  line(center, padding, tile_size + padding, center); 
+  line(padding, center, center, tile_size + padding); 
+  line(tile_size + padding, center, center, tile_size + padding); 
+ 
 
   // draw second set of dividing 
   // lines crossing thru center
+  
   float a_angle = 22.5; 
   float side_length = radius * tan(radians(a_angle));
-  
-  line(50, center + side_length, tile_size + 50, center - side_length);
-  line(50, center - side_length, tile_size + 50, center + side_length);
-  
-  line(center - side_length, 50, center + side_length, tile_size + 50);
-  line(center + side_length, 50, center - side_length, tile_size + 50);
-  
-}
 
-void paper(int in_val) {
-  noStroke();
-  for (int i = 0; i<width-1; i+=2) {
-    for (int j = 0; j<height-1; j+=2) {
-      fill(random(85-10, 85+10), in_val);
-      rect(i, j, 2, 2);
-    }
-  }
-
-  for (int i = 0; i<30; i++) {
-    fill(random(40, 60), random(in_val*2.5, in_val*3));
-    rect(random(0, width-2), random(0, height-2), random(1, 3), random(1, 3));
-  }
+  line(padding, center + side_length, tile_size + padding, center - side_length);
+  line(padding, center - side_length, tile_size + padding, center + side_length);
+  
+  line(center - side_length, padding, center + side_length, tile_size + padding);
+  line(center + side_length, padding, center - side_length, tile_size + padding);
 }
