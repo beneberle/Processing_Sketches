@@ -1,7 +1,7 @@
 
 void setup() {
 
-  size(400, 400);
+  size(800, 800);
   smooth(10);
   noLoop();
     
@@ -13,10 +13,10 @@ void draw() {
   
   background.draw();
   fill(45, 0);
-  draw_tile(300);
+  draw_tile();
 }
 
-void draw_tile(int tile_size) { 
+void draw_tile() { 
 
     stroke(130);
     strokeWeight(.8);
@@ -26,6 +26,7 @@ void draw_tile(int tile_size) {
   // just for fun
   
   // draw grid lines lines
+  int tile_size = int(width * .85);
   int radius =  tile_size / 2;
   int padding = int((width - tile_size) / 2);
   rectMode(RADIUS); 
@@ -68,45 +69,47 @@ void draw_tile(int tile_size) {
     } else {
         NextPlot = Plots[0];      
     }
-    float xx = NextPlot[0];
-    float yy = NextPlot[1];
-    line(x, y, xx, yy);
-    fill(45);
 
     if(i % 2 != 0) {
-        // odd column
-        ellipse(x, y, 10, 10);
-        if (numPoints > i + 2) {
-          NextPlot = Plots[i + 2];
-        } else {
-          NextPlot = Plots[1];   
-        }
-        float angle_b = NextPlot[0] / (radius + padding - (NextPlot[1]));
-        
-        line(NextPlot[0], NextPlot[1], x, y);
-
-        println(angle_b);
-        float x_trad = tan(angle_b) * radius;
-//      line(NextPlot[0], NextPlot[1], x_trad, padding);
+      // odd column
+      if (numPoints > i + 2) {
+        NextPlot = Plots[i + 2];
+      } else {
+        NextPlot = Plots[1];   
+      }
+      line(NextPlot[0], NextPlot[1], x, y);
     }
   }
-  
   
   line(center, padding, padding, center); 
   line(center, padding, tile_size + padding, center); 
   line(padding, center, center, tile_size + padding); 
   line(tile_size + padding, center, center, tile_size + padding); 
  
-
   // draw second set of dividing 
   // lines crossing thru center
   
   float a_angle = 22.5; 
-  float side_length = radius * tan(radians(a_angle));
+  float n_length = radius * tan(radians(a_angle));
 
-  line(padding, center + side_length, tile_size + padding, center - side_length);
-  line(padding, center - side_length, tile_size + padding, center + side_length);
+  line(padding, center + n_length, tile_size + padding, center - n_length);
+  line(padding, center - n_length, tile_size + padding, center + n_length);
   
-  line(center - side_length, padding, center + side_length, tile_size + padding);
-  line(center + side_length, padding, center - side_length, tile_size + padding);
+  line(center - n_length, padding, center + n_length, tile_size + padding);
+  line(center + n_length, padding, center - n_length, tile_size + padding);
+  
+  // draw skewed perimeter lines from circle apex points
+  
+  line(padding + tile_size, center, padding + tile_size - n_length, padding);
+  line(padding + tile_size, center, padding + tile_size - n_length, padding + tile_size);
+  
+  line(center, padding, padding, padding + n_length);
+  line(center, padding, padding + tile_size, padding + n_length);
+  
+  line(padding, center, padding + n_length, padding + tile_size);
+  line(padding, center, padding + n_length, padding);
+ 
+  line(center, padding + tile_size, padding, padding + tile_size - n_length);
+  line(center, padding + tile_size, padding + tile_size, padding + tile_size - n_length);
+ 
 }
