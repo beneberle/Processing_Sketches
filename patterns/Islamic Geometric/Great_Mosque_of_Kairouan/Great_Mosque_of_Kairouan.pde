@@ -10,7 +10,6 @@ void setup() {
 void draw() {
 
   Paper background = new Paper(15);
-  
   background.draw();
   fill(45, 0);
   draw_tile();
@@ -18,13 +17,9 @@ void draw() {
 
 void draw_tile() { 
 
-    stroke(130);
-    strokeWeight(.8);
-  
-  // draw all construction lines,
-  
-  // just for fun
-  
+  stroke(130);
+  strokeWeight(.8);
+    
   // draw grid lines lines
   int tile_size = int(width * .85);
   int radius =  tile_size / 2;
@@ -51,23 +46,37 @@ void draw_tile() {
   // declare point plots array
   float[][] Plots;
   float[] NextPlot;
+  float[][] SubPlots;
 
   // Setup the array
   Plots = new float [numPoints][2]; 
   for (int i = 0; i < numPoints; i++) { 
-    float x = radius * sin(angle*i)+width/2;
-    float y = radius * cos(angle*i)+height/2;
+    float x = radius * sin(angle * i) + width/2;
+    float y = radius * cos(angle * i) + height/2;
     Plots[i][0] = x; 
     Plots[i][1] = y;
+  }
+
+  float sub_angle = TWO_PI/(float)16; 
+  SubPlots = new float[16][2];  
+  for(int i = 0; i < 16; i++) {
+    float xx = (radius * .68) * sin(sub_angle * i) + width/2;
+    float yy = (radius * .68) * cos(sub_angle * i) + height/2;
+    SubPlots[i][0] = xx; 
+    SubPlots[i][1] = yy;
+  }
+
+  for(int i = 0; i < 16; i++) {
+    ellipse(SubPlots[i][0], SubPlots[i][1], 4, 4);
   }
 
   for (int i = 0; i < numPoints; i++) { 
     float x = Plots[i][0];
     float y = Plots[i][1];
     if (numPoints > i + 1) {
-        NextPlot = Plots[i+1];
+      NextPlot = Plots[i+1];
     } else {
-        NextPlot = Plots[0];      
+      NextPlot = Plots[0];      
     }
 
     if(i % 2 != 0) {
