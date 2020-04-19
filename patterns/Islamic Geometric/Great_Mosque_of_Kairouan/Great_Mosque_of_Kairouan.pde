@@ -4,7 +4,6 @@ void setup() {
   size(800, 800);
   smooth(10);
   noLoop();
-    
 }
 
 void draw() {
@@ -13,6 +12,7 @@ void draw() {
   background.draw();
   fill(45, 0);
   draw_tile();
+  save("great_mosque_of_kairouan.jpg");
 }
 
 void draw_tile() { 

@@ -3,27 +3,29 @@ int number_of_tiles = 3;
 
 void setup() {
 
-  size(600, 600);
+  size(1100, 800);
   smooth(10);
   noLoop();   
 }
 
 void draw() {
 
-  fill(45, 0);
+  fill(255, 0);
+  background(255);
   draw_tiles(); 
+  save("great_mosque_of_kairouan_tessellated.jpg");
 }
 
 void draw_tiles() { 
 
-  stroke(130);
-  strokeWeight(.8);
+  stroke(230);
+  strokeWeight(.6);
   float tile_size = width / number_of_tiles;
   for(int d = 0; d < number_of_tiles; d++) {
     float x = tile_size * d;
     for(int ii = 0; ii < number_of_tiles; ii++) {
-        float y = tile_size * ii;
-        draw_tile(x, y, tile_size);
+      float y = tile_size * ii;
+      draw_tile(x, y, tile_size);
     }
   }
 }
@@ -85,6 +87,17 @@ void draw_tile(float x, float y, float tile_size) {
       }
       line(NextPlot[0], NextPlot[1], xx, yy);
     }
+    
+    // add vertical inner lines
+    
+    // then try matrix pushing/popping?
+    
+    float inner_width = radius * .25;
+    line(center_x - inner_width, y,center_x - inner_width, far_y);
+    line(center_x + inner_width, y,center_x + inner_width, far_y);
+    line(x, center_y  - inner_width, far_x, center_y - inner_width);
+    line(x, center_y  + inner_width, far_x, center_y + inner_width);
+//    line(center_x + inner_width, y,center_x + inner_width, far_y);
   }
   // draw sqaures
     line(center_x, y, x, center_y); 
@@ -120,4 +133,18 @@ void draw_tile(float x, float y, float tile_size) {
   
   /*
    */
+}
+
+void keyPressed() {
+    if (key == '.') {
+    number_of_tiles++;
+  }
+  if (key == ',') {
+    if(number_of_tiles < 2 ) {
+      number_of_tiles = 1;      
+    } else {
+      number_of_tiles--;
+    }
+  }
+  redraw();
 }
