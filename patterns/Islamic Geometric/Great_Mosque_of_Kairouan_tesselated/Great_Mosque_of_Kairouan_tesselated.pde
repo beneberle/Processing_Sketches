@@ -29,11 +29,7 @@ void draw_tiles() {
 }
 
 void draw_tile(float x, float y, float tile_size) {
-  
-   // draw all construction lines,
-  
-  // just for fun
-  
+      
   // draw grid lines lines
   int radius =  int(tile_size / 2);
   rectMode(RADIUS); 
@@ -65,37 +61,36 @@ void draw_tile(float x, float y, float tile_size) {
   // Setup the array
   Plots = new float [numPoints][2]; 
   for (int i = 0; i < numPoints; i++) { 
-    float xx = radius * sin(angle * i) + tile_size / 2;
-    float yy = radius * cos(angle * i) + tile_size / 2;
+    float xx = radius * sin(angle * i) + (tile_size / 2) + x;
+    float yy = radius * cos(angle * i) + (tile_size / 2) + y;
     Plots[i][0] = xx; 
     Plots[i][1] = yy;
   }
 
-  for (int s = 0; s < numPoints; s++) { 
-    float xx = Plots[s][0];
-    float yy = Plots[s][1];
-    if (numPoints > s + 1) {
-      NextPlot = Plots[s + 1];
+  for (int i = 0; i < numPoints; i++) { 
+    float xx = Plots[i][0];
+    float yy = Plots[i][1];
+    if (numPoints > i + 1) {
+      NextPlot = Plots[i + 1];
     } else {
       NextPlot = Plots[0];      
     }
 
-    if(s % 2 != 0) {
+    if(i % 2 != 0) {
       // odd column
-      if (numPoints > s + 2) {
-        NextPlot = Plots[s + 2];
+      if (numPoints > i + 2) {
+        NextPlot = Plots[i + 2];
       } else {
         NextPlot = Plots[1];   
       }
       line(NextPlot[0], NextPlot[1], xx, yy);
     }
   }
-  
-  /*
-  line(center, y, x, center); 
-  line(center, y, far_x, center); 
-  line(x, center, center, far_y); 
-  line(far_x, center, center, far_y); 
+  // draw sqaures
+    line(center_x, y, x, center_y); 
+    line(center_x, y, far_x, center_y);
+    line(far_x, center_y, center_x, far_y); 
+    line(x, center_y, center_x, far_y); 
  
   // draw second set of dividing 
   // lines crossing thru center
@@ -103,24 +98,26 @@ void draw_tile(float x, float y, float tile_size) {
   float a_angle = 22.5; 
   float n_length = radius * tan(radians(a_angle));
 
-  line(x, center + n_length, far_x, center - n_length);
-  line(x, center - n_length, far_x, center + n_length);
-  
-  line(center - n_length, y, center + n_length, far_y);
-  line(center + n_length, y, center - n_length, far_y);
-  
+  line(x, center_y + n_length, far_x, center_y - n_length);
+  line(x, center_y - n_length, far_x, center_y + n_length);
+
+  line(center_x - n_length, y, center_x + n_length, far_y);
+  line(center_x + n_length, y, center_x - n_length, far_y);
+
   // draw skewed perimeter lines from circle apex points
+
+  line(far_x, center_y, far_x - n_length, y);
+  line(far_x, center_y, far_x - n_length, far_y);
+
+  line(center_x, y, x, y + n_length);
+  line(center_x, y, far_x, y + n_length);
   
-  line(far_x, center, far_x - n_length, y);
-  line(far_x, center, far_x - n_length, far_y);
+  line(x, center_y, x + n_length, far_y);
+  line(x, center_y, x + n_length, y);
+
+  line(center_x, far_y, x, far_y - n_length);
+  line(center_x, far_y, far_x, far_y - n_length); 
   
-  line(center, y, x, y + n_length);
-  line(center, y, far_x, y + n_length);
-  
-  line(x, center, x + n_length, far_y);
-  line(x, center, x + n_length, y);
- 
-  line(center, far_y, x, far_y - n_length);
-  line(center, far_y, far_x, far_y - n_length); 
-  */
+  /*
+   */
 }
