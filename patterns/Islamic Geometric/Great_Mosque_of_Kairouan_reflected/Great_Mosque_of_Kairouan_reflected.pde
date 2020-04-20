@@ -1,10 +1,9 @@
 int number_of_tiles = 2;
-
+float stroke_width = 8;
 void setup() {
 
   smooth(10);
-  stroke(30);
-  strokeWeight(18);
+  strokeCap(SQUARE);
   background(255);
   fill(20);
   noLoop();
@@ -14,9 +13,9 @@ void setup() {
 void draw() {
 
   fill(255, 0);
-  background(255);
+  background(250);
   draw_tiles(); 
-  save("great_mosque_of_kairouan_reflected.jpg");
+//save("great_mosque_of_kairouan_reflected.jpg");
 
 }
 
@@ -29,6 +28,11 @@ void draw_tiles() {
     float x = tile_size * i;
     for(int ii = 0; ii < number_of_tiles; ii++) {
       float y = tile_size * ii;
+      stroke(54);
+      strokeWeight(stroke_width * 2.15);
+      draw_tile(x, y, tile_size);
+      stroke(240,240,245);
+      strokeWeight(stroke_width);
       draw_tile(x, y, tile_size);
     }
   }
@@ -126,9 +130,12 @@ void draw_tile(float x, float y, float tile_size) {
       line(0, radius, 0 + n_length, 0);
       
       // draw diagonal lines
-      line(diagonal_offset, 0, radius, radius - diagonal_offset);
-      line(0, diagonal_offset, radius, radius + diagonal_offset);
-            
+      line(diagonal_offset, 0, radius, radius - inner_width - push_it);
+      line(0, diagonal_offset, radius - diagonal_offset, radius);
+      
+      // draw short little lines to complete central shape
+      line(radius - inner_width - push_it, radius, radius - inner_width, radius - push_it);
+      line(radius -  push_it, radius - inner_width, radius, radius - inner_width - push_it);
       popMatrix();
     }
   }
@@ -136,6 +143,13 @@ void draw_tile(float x, float y, float tile_size) {
 
 void keyPressed() {
   
+  if (key == 'x') {
+    stroke_width = stroke_width + .25;
+  }
+  if(key == 'z') {
+    stroke_width = stroke_width - .25;
+  }
+
   if (key == '.') {
     number_of_tiles++;
   }
@@ -143,5 +157,6 @@ void keyPressed() {
     number_of_tiles--;
   }
   number_of_tiles = constrain(number_of_tiles, 1, 10);
+  stroke_width = constrain(stroke_width, .25, 20);
   redraw();
 }
