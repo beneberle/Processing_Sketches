@@ -48,6 +48,7 @@ void draw_tile(float x, float y, float tile_size) {
   float n_length    = radius * tan(radians(a_angle));
 
   float inner_width = radius * .25;
+  float diagonal_offset = inner_width / sin(radians(45));
   float push_it     = radius * .1050;
 
   int scale_x = 1;
@@ -123,7 +124,13 @@ void draw_tile(float x, float y, float tile_size) {
       line(radius, 0, 0, 0 + n_length);
       line(0, radius, 0 + n_length, 0);
       
+      // calculate diagonal_push
+      line(diagonal_offset, 0, radius, radius - diagonal_offset);
+      line(0, diagonal_offset, radius, radius + diagonal_offset);
+      
+      
       popMatrix();
+      
     }
   }
 }
