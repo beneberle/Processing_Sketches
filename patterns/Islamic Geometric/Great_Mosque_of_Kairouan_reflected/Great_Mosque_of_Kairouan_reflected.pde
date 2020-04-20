@@ -47,9 +47,9 @@ void draw_tile(float x, float y, float tile_size) {
   float a_angle     = 22.5; 
   float n_length    = radius * tan(radians(a_angle));
 
-  float inner_width = radius * .25;
+  float inner_width = radius * .245;
   float diagonal_offset = inner_width / sin(radians(45));
-  float push_it     = radius * .1050;
+  float push_it     = tan(radians(a_angle)) * inner_width;
 
   int scale_x = 1;
   int scale_y = 1;
@@ -110,27 +110,26 @@ void draw_tile(float x, float y, float tile_size) {
         }
       }
       
-      scale(scale_x, scale_y);     
-      line(radius - inner_width, 0 + push_it, radius - inner_width, radius);
-      line(0 + push_it, radius  - inner_width, radius, radius - inner_width);
+      scale(scale_x, scale_y);
+
+      line(radius - inner_width, 0 + push_it, radius - inner_width, radius - push_it);
+      line(0 + push_it, radius - inner_width, radius - push_it, radius - inner_width);
     
       // draw second set of dividing 
       // lines crossing thru center
       
-      line(0, radius - n_length, radius, radius);
-      line(radius - n_length, 0, radius, radius);
+//    line(0, radius - n_length, radius, radius);
+//    line(radius - n_length, 0, radius, radius);
     
       // draw skewed perimeter lines
       line(radius, 0, 0, 0 + n_length);
       line(0, radius, 0 + n_length, 0);
       
-      // calculate diagonal_push
+      // draw diagonal lines
       line(diagonal_offset, 0, radius, radius - diagonal_offset);
       line(0, diagonal_offset, radius, radius + diagonal_offset);
-      
-      
+            
       popMatrix();
-      
     }
   }
 }
