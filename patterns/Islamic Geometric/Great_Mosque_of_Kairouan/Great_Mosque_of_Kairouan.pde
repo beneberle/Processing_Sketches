@@ -8,6 +8,7 @@ void setup() {
 
 void draw() {
 
+  background(245);
   Paper background = new Paper(15);
   background.draw();
   fill(45, 0);
