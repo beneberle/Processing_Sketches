@@ -48,26 +48,35 @@ void draw_tile(float x, float y, float tile_size) {
   float diagonal_offset = inner_width / sin(radians(45));
   float push_it     = tan(radians(a_angle)) * inner_width;
 
-  strokeJoin(MITER);
+  strokeJoin(ROUND);
   fill(245);
   noFill();
+  for(int i = 0; i < 4; i++) {
+      pushMatrix();
+      translate(radius, radius);
+      rotate(radians(45 * i));
+      beginShape();
+      vertex(0, -radius);
+      vertex(-inner_width, -radius + push_it);
+      vertex(-inner_width, -push_it);
+      vertex(-inner_width - push_it, 0);
+      vertex(-inner_width, push_it);
+      vertex(-inner_width, radius - push_it);
+      vertex(0, radius);
+      vertex(inner_width, radius - push_it);
+      
+      vertex(inner_width, 0 + push_it);
+      vertex(inner_width + push_it, 0);
+      
+      vertex(inner_width, -push_it);
+      vertex(inner_width, -radius + push_it);
+      vertex(0, -radius);
+      endShape();
+      popMatrix();
+  }
 
-  beginShape();
-  vertex(radius, 0);
-  vertex(radius - inner_width, 0 + push_it);
-  vertex(radius - inner_width, radius - push_it);
-  vertex(radius - inner_width - push_it, radius);
-  vertex(radius - inner_width, radius + push_it);
-  vertex(radius - inner_width, tile_size - push_it);
-  vertex(radius, tile_size);
-  vertex(radius + inner_width, tile_size - push_it);
-  vertex(radius + inner_width, tile_size - radius + push_it);
-  vertex(radius + inner_width + push_it, tile_size - radius);
-  vertex(radius + inner_width, tile_size - radius - push_it);
-  vertex(radius + inner_width, 0 + push_it);
-  vertex(radius, 0);
-  endShape();
-  
+
+  /*
   beginShape();
   vertex(0, radius);
   vertex(push_it, radius - inner_width);
@@ -82,20 +91,8 @@ void draw_tile(float x, float y, float tile_size) {
   vertex(radius - push_it, radius + inner_width);
   vertex(0 + push_it, radius + inner_width);
   vertex(0, radius);
-  /*
+  */
 
-  vertex(radius - inner_width - push_it, radius);
-  vertex(radius - inner_width, radius + push_it);
-  vertex(radius - inner_width, tile_size - push_it);
-  vertex(radius, tile_size);
-  vertex(radius + inner_width, tile_size - push_it);
-  vertex(radius + inner_width, tile_size - radius + push_it);
-  vertex(radius + inner_width + push_it, tile_size - radius);
-  vertex(radius + inner_width, tile_size - radius - push_it);
-  vertex(radius + inner_width, 0 + push_it);
-
-
-    */
   endShape();
      
 }
