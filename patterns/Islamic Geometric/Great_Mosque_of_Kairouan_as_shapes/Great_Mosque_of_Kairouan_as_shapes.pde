@@ -15,7 +15,7 @@ void draw() {
   fill(255, 0);
   background(250);
   draw_tiles(); 
-  save("great_mosque_of_kairouan_as_shapes.jpg");
+//save("great_mosque_of_kairouan_as_shapes.jpg");
 
 }
 
@@ -48,7 +48,7 @@ void draw_tile(float x, float y, float tile_size) {
   float diagonal_offset = inner_width / sin(radians(45));
   float push_it     = tan(radians(a_angle)) * inner_width;
 
-  strokeJoin(ROUND);
+  strokeJoin(MITER);
   fill(245);
   noFill();
   for(int i = 0; i < 4; i++) {
@@ -71,7 +71,7 @@ void draw_tile(float x, float y, float tile_size) {
       vertex(inner_width, -push_it);
       vertex(inner_width, -radius + push_it);
       vertex(0, -radius);
-      endShape();
+      endShape(CLOSE);
       popMatrix();
   }
 
