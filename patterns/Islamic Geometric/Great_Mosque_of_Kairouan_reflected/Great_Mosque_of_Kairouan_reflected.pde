@@ -1,5 +1,5 @@
-int number_of_tiles = 2;
-float stroke_width = 8;
+int number_of_tiles = 3;
+float stroke_width = 11;
 void setup() {
 
   smooth(10);
@@ -29,10 +29,13 @@ void draw_tiles() {
     for(int ii = 0; ii < number_of_tiles; ii++) {
       float y = tile_size * ii;
       stroke(54);
-      strokeWeight(stroke_width * 2.15);
+      strokeWeight(stroke_width + 1.5);
       draw_tile(x, y, tile_size);
-      stroke(240,240,245);
+      stroke(245,245,245);
       strokeWeight(stroke_width);
+      draw_tile(x, y, tile_size);
+      stroke(54);
+      strokeWeight(1);
       draw_tile(x, y, tile_size);
     }
   }

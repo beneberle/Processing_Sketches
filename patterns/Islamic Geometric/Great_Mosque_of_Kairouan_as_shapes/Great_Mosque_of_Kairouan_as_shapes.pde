@@ -1,45 +1,51 @@
 int number_of_tiles = 1;
-float stroke_width = 8;
+float stroke_width = 25;
 void setup() {
 
   smooth(10);
   strokeCap(SQUARE);
-  background(255);
-  fill(20);
-  noLoop();
+  background(250);
+  fill(45, 10);
+//  noLoop();
   size(800, 800);
 }
 
 void draw() {
 
-  fill(255, 0);
-  background(250);
-  draw_tiles(); 
+  fill(45);
+  background(150);
+  stroke(240);
+  strokeJoin(MITER);
+  strokeWeight(stroke_width);
+  noFill();
+
+  float tile_size = width / number_of_tiles;
+
+//draw_tile(tile_size);
+//fill(245, 245, 245, 255);
+
+  stroke(254);
+  strokeWeight(stroke_width * 1.15);
+  draw_tile(tile_size * .94);
+
+  stroke(54);
+  strokeWeight(stroke_width);
+  draw_tile(tile_size * .94);
+  
+  stroke(244);
+  strokeWeight(stroke_width * .55);
+  draw_tile(tile_size * .94);
+
+  stroke(54);
+  strokeWeight(.75);
+  draw_tile(tile_size * .94);
+
 //save("great_mosque_of_kairouan_as_shapes.jpg");
 
 }
 
-void draw_tiles() { 
+void draw_tile(float tile_size) {
 
-  stroke(0, 0, 0, 40);
-  strokeWeight(.6);
-  float tile_size = width / number_of_tiles;
-  for(int i = 0; i < number_of_tiles; i++) {
-    float x = tile_size * i;
-    for(int ii = 0; ii < number_of_tiles; ii++) {
-      float y = tile_size * ii;
-      stroke(54);
-      strokeWeight(stroke_width * 2.15);
-//    draw_tile(x, y, tile_size);
-//    stroke(240,240,245);
-//    strokeWeight(stroke_width);
-      draw_tile(x, y, tile_size);
-    }
-  }
-}
-
-void draw_tile(float x, float y, float tile_size) {
-              
   int radius        = int(tile_size / 2);
   float a_angle     = 22.5; 
   float n_length    = radius * tan(radians(a_angle));
@@ -47,13 +53,9 @@ void draw_tile(float x, float y, float tile_size) {
   float inner_width = radius * .245;
   float diagonal_offset = inner_width / sin(radians(45));
   float push_it     = tan(radians(a_angle)) * inner_width;
-
-  strokeJoin(MITER);
-  fill(245);
-  noFill();
   for(int i = 0; i < 4; i++) {
       pushMatrix();
-      translate(radius, radius);
+      translate(width / 2, height / 2);
       rotate(radians(45 * i));
       beginShape();
       vertex(0, -radius);
@@ -61,17 +63,27 @@ void draw_tile(float x, float y, float tile_size) {
       vertex(-inner_width, -push_it);
       vertex(-inner_width - push_it, 0);
       vertex(-inner_width, push_it);
+//    endShape();
+      
+//    beginShape();
+      
       vertex(-inner_width, radius - push_it);
       vertex(0, radius);
-      vertex(inner_width, radius - push_it);
       
+      vertex(inner_width, radius - push_it);
+
       vertex(inner_width, 0 + push_it);
       vertex(inner_width + push_it, 0);
       
       vertex(inner_width, -push_it);
       vertex(inner_width, -radius + push_it);
       vertex(0, -radius);
+
       endShape(CLOSE);
+      if(i == 1 ) {
+         // 45*
+//       line(0,radius,radius, 0);
+      }
       popMatrix();
   }
 
@@ -92,8 +104,6 @@ void draw_tile(float x, float y, float tile_size) {
   vertex(0 + push_it, radius + inner_width);
   vertex(0, radius);
   */
-
-  endShape();
      
 }
 
@@ -113,6 +123,6 @@ void keyPressed() {
     number_of_tiles--;
   }
   number_of_tiles = constrain(number_of_tiles, 1, 10);
-  stroke_width = constrain(stroke_width, .25, 20);
+  stroke_width = constrain(stroke_width, .25, 30);
   redraw();
 }
