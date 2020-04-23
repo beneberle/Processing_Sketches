@@ -130,9 +130,6 @@ void draw_tile(float x, float y, float tile_size) {
 
   line(center_x, far_y, x, far_y - n_length);
   line(center_x, far_y, far_x, far_y - n_length); 
-  
-  /*
-   */
 }
 
 void keyPressed() {
