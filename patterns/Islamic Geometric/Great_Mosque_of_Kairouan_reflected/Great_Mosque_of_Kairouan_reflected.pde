@@ -1,19 +1,20 @@
-int number_of_tiles = 3;
-float stroke_width = 11;
+int number_of_tiles = 1;
+float stroke_width = 20;
+
 void setup() {
 
   smooth(10);
-  strokeCap(SQUARE);
+  strokeCap(ROUND);
   background(255);
   fill(20);
-  noLoop();
+//noLoop();
   size(800, 800);
 }
 
 void draw() {
 
   fill(255, 0);
-  background(250);
+  background(225,245,225);
   draw_tiles(); 
 //save("great_mosque_of_kairouan_reflected.jpg");
 
@@ -21,21 +22,23 @@ void draw() {
 
 void draw_tiles() { 
 
-  stroke(0, 0, 0, 40);
-  strokeWeight(.6);
   float tile_size = width / number_of_tiles;
   for(int i = 0; i < number_of_tiles; i++) {
     float x = tile_size * i;
     for(int ii = 0; ii < number_of_tiles; ii++) {
       float y = tile_size * ii;
+
       stroke(54);
+      stroke_width = map(mouseX, 0, width, 15, 55);
       strokeWeight(stroke_width + 1.5);
       draw_tile(x, y, tile_size);
-      stroke(245,245,245);
+      
+      stroke(225,225,245);
       strokeWeight(stroke_width);
       draw_tile(x, y, tile_size);
+      
       stroke(54);
-      strokeWeight(1);
+      strokeWeight(map(stroke_width, 15, 55, .25, 5));
       draw_tile(x, y, tile_size);
     }
   }
@@ -43,13 +46,11 @@ void draw_tiles() {
 
 void draw_tile(float x, float y, float tile_size) {
       
-  // let's try drawing the single 
-  // top left quadrant
-  // of the overall tile 4-quadrant
-  // tile and transform and reflect 
-  // it around for perfect symmetry
+  // draw top left quadrant of the 
+  // 4-quadrant tile, transforming 
+  // and reflecting around for 
+  // perfect symmetry
         
-  // draw grid lines
   int radius        = int(tile_size / 2);
   float a_angle     = 22.5; 
   float n_length    = radius * tan(radians(a_angle));
@@ -120,7 +121,8 @@ void draw_tile(float x, float y, float tile_size) {
       scale(scale_x, scale_y);
 
       line(radius - inner_width, 0 + push_it, radius - inner_width, radius - push_it);
-      line(0 + push_it, radius - inner_width, radius - push_it, radius - inner_width);
+   //   line(radius - inner_width, 0 + push_it, radius - inner_width, radius - push_it);
+      line(push_it, radius - inner_width, radius - push_it, radius - inner_width);
     
       // draw second set of dividing 
       // lines crossing thru center
@@ -129,16 +131,34 @@ void draw_tile(float x, float y, float tile_size) {
 //    line(radius - n_length, 0, radius, radius);
     
       // draw skewed perimeter lines
-      line(radius, 0, 0, 0 + n_length);
-      line(0, radius, 0 + n_length, 0);
+      line(0, radius, push_it, radius - inner_width);
+      line(radius, 0, radius - inner_width, push_it);
       
       // draw diagonal lines
       line(diagonal_offset, 0, radius, radius - inner_width - push_it);
       line(0, diagonal_offset, radius - diagonal_offset, radius);
       
+      float missing_point_x = (radius - diagonal_offset - inner_width ) / sin(radians(45));
+      
+      circle(radius - missing_point_x, radius - missing_point_x, 10);
+      
+      circle(radius - inner_width,  radius - diagonal_offset - inner_width, 10); 
+      circle(radius - diagonal_offset - inner_width, radius - inner_width, 10); 
+      println(missing_point_x);
+      
       // draw short little lines to complete central shape
       line(radius - inner_width - push_it, radius, radius - inner_width, radius - push_it);
       line(radius -  push_it, radius - inner_width, radius, radius - inner_width - push_it);
+
+      /*
+      attempt at masking the edges
+      to better handle stroke joins?
+      
+      noFill();
+      stroke(225,245,225);
+      strokeWeight(50);
+      square(-25,-25,radius + 25);
+      */
       popMatrix();
     }
   }
