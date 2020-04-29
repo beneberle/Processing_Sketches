@@ -4,7 +4,8 @@ float stroke_width = 20;
 void setup() {
 
   smooth(10);
-  strokeCap(ROUND);
+  strokeJoin(MITER);
+  strokeCap(PROJECT);
   background(255);
   fill(20);
 //noLoop();
@@ -14,7 +15,8 @@ void setup() {
 void draw() {
 
   fill(255, 0);
-  background(225,245,225);
+  background(224, 242, 233);
+  stroke_width = map(mouseX, 0, width, int(15 / number_of_tiles), int(55 / number_of_tiles));
   draw_tiles(); 
 //save("great_mosque_of_kairouan_reflected.jpg");
 
@@ -23,22 +25,22 @@ void draw() {
 void draw_tiles() { 
 
   float tile_size = width / number_of_tiles;
+
   for(int i = 0; i < number_of_tiles; i++) {
     float x = tile_size * i;
     for(int ii = 0; ii < number_of_tiles; ii++) {
       float y = tile_size * ii;
 
-      stroke(54);
-      stroke_width = map(mouseX, 0, width, 15, 55);
+      stroke(206, 181, 167);
       strokeWeight(stroke_width + 1.5);
       draw_tile(x, y, tile_size);
       
-      stroke(225,225,245);
+      stroke(91, 123, 122);
       strokeWeight(stroke_width);
       draw_tile(x, y, tile_size);
       
-      stroke(54);
-      strokeWeight(map(stroke_width, 15, 55, .25, 5));
+      stroke(224, 242, 233);
+      strokeWeight(map(stroke_width, int(15 / number_of_tiles), int(55 / number_of_tiles), .25, 5));
       draw_tile(x, y, tile_size);
     }
   }
@@ -51,9 +53,9 @@ void draw_tile(float x, float y, float tile_size) {
   // and reflecting around for 
   // perfect symmetry
         
-  int radius        = int(tile_size / 2);
-  float a_angle     = 22.5; 
-  float n_length    = radius * tan(radians(a_angle));
+  int radius     = int(tile_size / 2);
+  float a_angle  = 22.5; 
+  float n_length = radius * tan(radians(a_angle));
 
   float inner_width = radius * .245;
   float diagonal_offset = inner_width / sin(radians(45));
@@ -92,7 +94,6 @@ void draw_tile(float x, float y, float tile_size) {
           // left bottom
           
           translate(x, y + tile_size);
-          fill(0, 255, 0);
           scale_x = 1;
           scale_y = -1;
         }
@@ -121,39 +122,34 @@ void draw_tile(float x, float y, float tile_size) {
       scale(scale_x, scale_y);
 
       line(radius - inner_width, 0 + push_it, radius - inner_width, radius - push_it);
-   //   line(radius - inner_width, 0 + push_it, radius - inner_width, radius - push_it);
       line(push_it, radius - inner_width, radius - push_it, radius - inner_width);
-    
-      // draw second set of dividing 
-      // lines crossing thru center
-      
-//    line(0, radius - n_length, radius, radius);
-//    line(radius - n_length, 0, radius, radius);
     
       // draw skewed perimeter lines
       line(0, radius, push_it, radius - inner_width);
       line(radius, 0, radius - inner_width, push_it);
+            
+      float side_a = radius - diagonal_offset - inner_width - push_it;
+      float missing_length = sin(radians(22.5)) * side_a;
+
+      float missing_y  = (sin(radians(22.5)) * (missing_length * 2)) + push_it;
+      float missing_x  = sin(radians(67.5)) * (missing_length * 2);
+      missing_x = radius - inner_width - missing_x;
       
       // draw diagonal lines
-      line(diagonal_offset, 0, radius, radius - inner_width - push_it);
-      line(0, diagonal_offset, radius - diagonal_offset, radius);
+      line(radius, radius - inner_width - push_it, missing_x, missing_y);
+      line(missing_x, missing_y, 0, n_length);
       
-      float missing_point_x = (radius - diagonal_offset - inner_width ) / sin(radians(45));
-      
-      circle(radius - missing_point_x, radius - missing_point_x, 10);
-      
-      circle(radius - inner_width,  radius - diagonal_offset - inner_width, 10); 
-      circle(radius - diagonal_offset - inner_width, radius - inner_width, 10); 
-      println(missing_point_x);
-      
+      line(missing_y, missing_x, radius - diagonal_offset, radius);
+      line(missing_y, missing_x, n_length, 0);
+
       // draw short little lines to complete central shape
       line(radius - inner_width - push_it, radius, radius - inner_width, radius - push_it);
       line(radius -  push_it, radius - inner_width, radius, radius - inner_width - push_it);
 
-      /*
-      attempt at masking the edges
-      to better handle stroke joins?
+      // attempt at masking the edges
+      // to better handle stroke joins?
       
+      /*
       noFill();
       stroke(225,245,225);
       strokeWeight(50);
