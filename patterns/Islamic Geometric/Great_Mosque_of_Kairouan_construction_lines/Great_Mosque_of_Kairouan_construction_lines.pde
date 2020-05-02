@@ -13,7 +13,7 @@ void draw() {
   fill(255, 0);
   background(255);
   draw_tiles(); 
-  save("great_mosque_of_kairouan_tessellated.jpg");
+  save("great_mosque_of_kairouan_construction_lines.jpg");
 }
 
 void draw_tiles() { 
