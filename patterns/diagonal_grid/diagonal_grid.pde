@@ -20,7 +20,7 @@ void draw() {
     
     draw_grid(lines_per_row, padding);
     
-//  save("diagonal_grid_"+lines_per_row+"_"+width+"_"+height+".jpg");
+    save("diagonal_grid_"+lines_per_row+"_"+width+"_"+height+".jpg");
 
 }
 
