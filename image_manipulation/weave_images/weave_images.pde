@@ -1,6 +1,6 @@
 PImage img;
+PImage beach_img_two;
 int current_img = 0;
-int total_image_count = 1;
 int grid = 10;
 
 void setup() {
@@ -19,11 +19,10 @@ void draw() {
   background(255);
   // list the files in the data folder
   java.io.File folder = new java.io.File(dataPath(""));
-
+  
   String[] filenames = folder.list();
-  String image_to_load  = filenames[current_img];
-  total_image_count = filenames.length;
-  img = loadImage(image_to_load);
+  img = loadImage(filenames[current_img]);
+  beach_img_two = loadImage(filenames[1]);
   int padding = 100;
   boolean is_portrait = img.width < img.height ? true : false;
   float resize = (float)(width - padding) / (float)img.width;  
@@ -37,7 +36,7 @@ void draw() {
   int x_pos = (width - new_width) / 2; 
   int y_pos = (height - new_height) / 2; 
   println("new_width = " + new_width);
-//  image(img, x_pos, y_pos, new_width, new_height);
+//image(img, x_pos, y_pos, new_width, new_height);
 
   // Pick a random point
   
@@ -47,35 +46,32 @@ void draw() {
   loadPixels(); 
   // Since we are going to access the image's pixels too  
   img.loadPixels(); 
+  
   for (int xx = 0; xx < width; xx++) {
+    int row_count = 0;
+    int grid_count = 0;
     for (int yy = 0; yy < height; yy++ ) {
 
-      // Calculate the 1D pixel location
-      
       // Get the R,G,B values from image
-
-      /*
-      we have the pixel location of the 
-      display area of the square 
       
-      what  we need is the translated pixel 
-      location of the image
-      */
-      
-      int disp_loc = xx + yy * width;
-//    int image_loc = int(map(disp_loc, 0, (width * height), 0, img.width * img.height));
+      int disp_loc  = xx + yy * width;
       int image_loc = xx + yy * width;
+
       float r = red   (img.pixels[image_loc]);
       float g = green (img.pixels[image_loc]);
       float b = blue  (img.pixels[image_loc]);
-      
-      // Make a new color and set 
-      // pixel in the window
-      color c = color(r,g,b);
-      if((yy / grid_width) {
-        c = color(255,255,255);
+      if(row_count % 2 != 0) {
+        // odd column
+         r = red   (beach_img_two.pixels[image_loc]);
+         g = green (beach_img_two.pixels[image_loc]);
+         b = blue  (beach_img_two.pixels[image_loc]);
       }
-      pixels[disp_loc] = c;
+      pixels[disp_loc] = color(r,g,b);
+      grid_count++;
+      if(grid_count == grid_width) {
+        row_count++;
+        grid_count = 0;
+      }
     }
   }
   updatePixels();
@@ -89,5 +85,7 @@ void keyPressed() {
   if (key == ',') {
     grid--;
   }
+  
+  grid = constrain(grid, 1, 30);
   redraw();
 }

@@ -82,8 +82,7 @@ void vertical_strips() {
       // Use the formula to find the 1D location
       // slices determine where to draw lines?
       
-      int loc = x + y * width; 
-      
+      int loc = x + y * width;
       if (x % strip_divides == 0) { 
         
         // the more slices
@@ -113,6 +112,6 @@ void keyPressed() {
   if (key == 'x') {
     slices++;
   }
-  slices = constrain(slices, 0, 90);
+  slices = constrain(slices, 1, 90);
   redraw();
 }
