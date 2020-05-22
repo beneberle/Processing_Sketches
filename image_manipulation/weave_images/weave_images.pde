@@ -1,7 +1,7 @@
 PImage img;
 PImage beach_img_two;
 int current_img = 0;
-int grid = 10;
+int grid = 15;
 
 void setup() {
 
@@ -74,7 +74,9 @@ void draw() {
       }
     }
   }
+
   updatePixels();
+//save("weave_images.jpg");
 }
 
 void keyPressed() {
