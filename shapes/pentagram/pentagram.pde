@@ -80,6 +80,9 @@ void draw() {
   // around pentagram
   strokeWeight(15);
   ellipse(Plots[0][0], (Plots[0][1] -200), 400, 400);
+  
+//save("pentagram.jpg");
+
 }
 
 void keyPressed() {

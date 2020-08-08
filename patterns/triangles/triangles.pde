@@ -11,7 +11,7 @@ void draw() {
   int size = 30;
   stroke(2);
   grid(40, 20);
-
+//save("triangles.jpg");
 }
 
 void grid(int size, int rows) {

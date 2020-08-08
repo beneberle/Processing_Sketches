@@ -16,7 +16,6 @@ void setup() {
   smooth();
   size(500, 500);
   strokeWeight(1);
-  background(51);
 }
 
 void draw() {
@@ -24,11 +23,17 @@ void draw() {
   // flip canvas so that central 
   // point is on top
   
+  variable_pointed_star();
+  save("variable_pointed_star.jpg");
+}
+
+void variable_pointed_star() { 
+
   rotate(2*PI/2);
   translate(-width,-height);
   
   // erase
-  background(51);
+  background(172);
 
   int numPoints = this.numPoints; 
 

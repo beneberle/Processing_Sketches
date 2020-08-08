@@ -13,7 +13,11 @@ void setup() {
 }
 
 void draw() {
+  
   eqilateral_triangles();
+
+//save("two_six_pointed_stars.jpg");
+
 }
 
 void eqilateral_triangles() { 

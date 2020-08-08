@@ -13,7 +13,10 @@ void setup() {
 }
 
 void draw() {
+
   eqilateral_triangles();
+  save("eqilateral_triangles.jpg");
+
 }
 
 void eqilateral_triangles() { 
