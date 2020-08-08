@@ -39,7 +39,6 @@ void draw() {
 //image(img, x_pos, y_pos, new_width, new_height);
 
   // Pick a random point
-  
   int grid_width = new_width / grid;
   println("grid_width = " + grid_width);
     
@@ -48,25 +47,30 @@ void draw() {
   img.loadPixels(); 
   
   for (int xx = 0; xx < width; xx++) {
-    int row_count = 0;
+    int row_count  = 0;
     int grid_count = 0;
     for (int yy = 0; yy < height; yy++ ) {
 
       // Get the R,G,B values from image
+      int image_loc   = xx + yy * width;
+      int reverse_loc = xx + yy * width;
       
-      int disp_loc  = xx + yy * width;
-      int image_loc = xx + yy * width;
-
       float r = red   (img.pixels[image_loc]);
       float g = green (img.pixels[image_loc]);
       float b = blue  (img.pixels[image_loc]);
+      
       if(row_count % 2 != 0) {
         // odd column
-         r = red   (beach_img_two.pixels[image_loc]);
-         g = green (beach_img_two.pixels[image_loc]);
-         b = blue  (beach_img_two.pixels[image_loc]);
+         
+         reverse_loc = xx + yy * width;
+         if(reverse_loc - grid > 0) {
+           reverse_loc = reverse_loc - grid;
+         }
+         r = red   (img.pixels[reverse_loc]);
+         g = green (img.pixels[reverse_loc]);
+         b = blue  (img.pixels[reverse_loc]);
       }
-      pixels[disp_loc] = color(r,g,b);
+      pixels[image_loc] = color(r,g,b);
       grid_count++;
       if(grid_count == grid_width) {
         row_count++;
