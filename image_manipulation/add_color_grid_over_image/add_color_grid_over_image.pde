@@ -69,6 +69,7 @@ void draw() {
     }
     y_start= (height - new_height) / 2; 
   }
+  save("add_color_grid_over_image.jpg");
 }
 
 void keyPressed() {
